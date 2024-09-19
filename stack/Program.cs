@@ -27,7 +27,31 @@ namespace stack
 
             Console.WriteLine("\n- - -  Evaluate Postfix Expression - - - ");
             Postfix();
-           
+
+
+            // 5 1 2 + 4 * + 3 -
+
+            Console.WriteLine("\n- - -  Check for Balanced Parentheses - - - ");
+            string input1 = "(())";
+            string input2 = "(()";
+            if (IsBalanced(input1))
+            {
+                Console.WriteLine(input1 + " IS Balanced: YES");
+            }
+            else {
+                Console.WriteLine(input1+ " IS Balanced: NO");
+
+            }
+            if (IsBalanced(input2))
+            {
+                Console.WriteLine(input2+ " IS Balanced: YES");
+            }
+            else
+            {
+                Console.WriteLine(input2+ " IS Balanced: NO");
+
+            }
+
 
 
         }
@@ -94,10 +118,34 @@ namespace stack
                 }
 
                 }
-            
+            foreach(var v in postfix)
+            {
+                Console.WriteLine(v);
             }
-       
+        
+   
+        }
 
+        static bool IsBalanced(string input)
+        {
+            Stack<char> stack = new Stack<char>();
+            foreach (char cha in input)
+            {
+                if (cha == '(')
+                {
+                    stack.Push(cha); 
+                }
+                else if (cha == ')')
+                {
+                  
+                    if (stack.Count == 0)
+                        return false;
+                        stack.Pop(); 
+                }
+            }
+      
+            return stack.Count == 0;
         }
     }
+}
 
