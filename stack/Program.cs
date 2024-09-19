@@ -28,7 +28,7 @@ namespace stack
 
 
             Console.WriteLine("\n- - -  Evaluate Postfix Expression - - - ");
-            //Postfix();
+            Postfix();
 
 
             // 5 1 2 + 4 * + 3 -
@@ -55,16 +55,7 @@ namespace stack
             }
 
             Console.WriteLine("\n- - -  Find the Maximum Element in a Stack - - - ");
-            Stack<int> stackmax = new Stack<int>();
-            stackmax.Push(0);   
-            stackmax.Push(1);
-            stackmax.Push(10);
-            stackmax.Push(20);
-            //stackmax.Max();
-            //stackmax.Pop();  
-            //stackmax.Max(); 
-            //stackmax.Pop();  
-            //stackmax.Max();  
+            Maxmim();
 
 
             Console.WriteLine("\n- - -  Reverse a Queue - - - ");
@@ -88,7 +79,19 @@ namespace stack
             }
 
 
+            Console.WriteLine("\n- - -   Check if a Queue is a Palindrome  - - - ");
 
+            Queue<int> Palindrome = new Queue<int>();
+           
+            Palindrome.Enqueue(1);
+            Palindrome.Enqueue(2);
+            Palindrome.Enqueue(3);
+            Palindrome.Enqueue(2);
+            Palindrome.Enqueue(1);
+         
+        
+            bool result = PalindromeQ(Palindrome);
+            Console.WriteLine($"Is the queue a palindrome? {result}");
 
 
         }
@@ -185,42 +188,40 @@ namespace stack
         }
 
 
-        public void Push(int value)
+       
+        static void Maxmim()
         {
-            Max.Push(value);
-            
-            if (Max.Count == 0 || value >= Max.Peek())//if empty or >= push ot max
-            {
-                Max.Push(value);
-            }
-        }
-        static void Maxmim(Stack<int> m)
-        {
+            Stack<string> stackmax = new Stack<string>();
+            int max = 0;
+            Console.WriteLine("Enter integer numbers");
+            string input = Console.ReadLine();
+            foreach (char c in input) {
+                try
+                {
+                    int n = int.Parse(c.ToString());
+                    if (n > max)
+                    {
+                        max = n;
 
-
-            if (Max.Count == 0)
-            {
-                Console.WriteLine("empty");
-                return;
+                    }
+                    stackmax.Push(c.ToString());
+                }
+                catch  {
+                    stackmax.Push(c.ToString());
+                }
+               
             }
-            Console.WriteLine("Max: " + Max.Peek());
+            if (max != 0)
+            {
+                Console.WriteLine("Max: " + max);
+            }
+            else
+            {
+                Console.WriteLine("Empty number");
+            }
 
         }
-        public void Pop()
-        {
-            if (Min.Count == 0)
-            {
-                Console.WriteLine("nothing to pop.");
-                return;
-            }
-            int popValue = Min.Pop();
-            // If the popped value is the current max, pop it from maxStack as well
-            if (popValue == Min.Peek())
-            {
-                Min.Pop();
-            }
-            Console.WriteLine("Popped: " + popValue);
-        }
+       
 
 
         static void ReverseQueue(Queue<int> queue)
@@ -237,6 +238,37 @@ namespace stack
                 queue.Enqueue(stack.Pop());
             }
         }
+
+        static bool PalindromeQ(Queue<int> queue)
+        {
+            Stack<int> stack = new Stack<int>();
+            int count = queue.Count;
+
+            foreach (int q in queue)
+            {
+                stack.Push(q);
+            }
+        
+            for (int i = 0; i < count; i++)
+            {
+                int q1 = queue.Dequeue();  
+                int reverseq = stack.Pop();      
+
+                queue.Enqueue(q1);
+            
+                if (q1 != reverseq)
+                {
+                    return false;
+                }
+            }
+            return true;
+
+
+        }
+
+
+
+
     }
 }
 
