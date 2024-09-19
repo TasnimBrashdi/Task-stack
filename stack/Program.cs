@@ -4,6 +4,8 @@ namespace stack
 {
     internal class Program
     {
+        static Stack<int> Max = new Stack<int>();
+        static Stack<int> Min = new Stack<int>();
         static void Main(string[] args)
         {
 
@@ -26,7 +28,7 @@ namespace stack
 
 
             Console.WriteLine("\n- - -  Evaluate Postfix Expression - - - ");
-            Postfix();
+            //Postfix();
 
 
             // 5 1 2 + 4 * + 3 -
@@ -51,6 +53,41 @@ namespace stack
                 Console.WriteLine(input2+ " IS Balanced: NO");
 
             }
+
+            Console.WriteLine("\n- - -  Find the Maximum Element in a Stack - - - ");
+            Stack<int> stackmax = new Stack<int>();
+            stackmax.Push(0);   
+            stackmax.Push(1);
+            stackmax.Push(10);
+            stackmax.Push(20);
+            //stackmax.Max();
+            //stackmax.Pop();  
+            //stackmax.Max(); 
+            //stackmax.Pop();  
+            //stackmax.Max();  
+
+
+            Console.WriteLine("\n- - -  Reverse a Queue - - - ");
+            Queue<int> queue = new Queue<int>();
+            queue.Enqueue(9);
+            queue.Enqueue(2);
+            queue.Enqueue(4);
+            queue.Enqueue(7);
+            queue.Enqueue(5);
+            Console.WriteLine(" Queue:");
+            foreach (int q in queue)
+            {
+                Console.Write(q + " ");
+            }
+            // Reverse the queue
+            ReverseQueue(queue);
+            Console.WriteLine("\nReversed Queue:");
+            foreach (int q in queue)
+            {
+                Console.Write(q + " ");
+            }
+
+
 
 
 
@@ -145,6 +182,60 @@ namespace stack
             }
       
             return stack.Count == 0;
+        }
+
+
+        public void Push(int value)
+        {
+            Max.Push(value);
+            
+            if (Max.Count == 0 || value >= Max.Peek())//if empty or >= push ot max
+            {
+                Max.Push(value);
+            }
+        }
+        static void Maxmim(Stack<int> m)
+        {
+
+
+            if (Max.Count == 0)
+            {
+                Console.WriteLine("empty");
+                return;
+            }
+            Console.WriteLine("Max: " + Max.Peek());
+
+        }
+        public void Pop()
+        {
+            if (Min.Count == 0)
+            {
+                Console.WriteLine("nothing to pop.");
+                return;
+            }
+            int popValue = Min.Pop();
+            // If the popped value is the current max, pop it from maxStack as well
+            if (popValue == Min.Peek())
+            {
+                Min.Pop();
+            }
+            Console.WriteLine("Popped: " + popValue);
+        }
+
+
+        static void ReverseQueue(Queue<int> queue)
+        {
+            Stack<int> stack = new Stack<int>();
+        
+            while (queue.Count > 0)
+            {
+                stack.Push(queue.Dequeue());
+            }
+       
+            while (stack.Count > 0)
+            {
+                queue.Enqueue(stack.Pop());
+            }
         }
     }
 }
